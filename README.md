@@ -1,8 +1,8 @@
 # AI-Native Project Template
 
-**Build production apps with AI using a proven workflow**
+**Inspired by Zevi's workflow on Lenny's podcast — Project-level configuration to start your product development**
 
-This template provides a complete development system for building with AI tools (Claude Code, Cursor, Codex). Based on the workflow used by product managers at Meta to ship real features without traditional coding.
+Drop this template into any project and start building production apps with AI (Claude Code, Cursor, or Codex). No coding experience needed. Based on the proven workflow used by product managers at Meta to ship real features.
 
 ---
 
