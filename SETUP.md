@@ -4,6 +4,74 @@
 
 ---
 
+## Prerequisites
+
+Before using this template, you need **at least one AI tool**. Here's how to get set up:
+
+### Option 1: Cursor (Recommended for Beginners)
+
+**Why Cursor**: All-in-one solution with AI built-in. Best for non-technical users.
+
+1. **Download Cursor**: https://cursor.com
+2. **Sign up for Cursor Pro** ($20/mo):
+   - Open Cursor → Settings → Subscription
+   - Click "Upgrade to Pro"
+   - Includes Claude Opus, GPT-4, and Cursor Composer
+3. **Done!** Cursor is ready to use with this template.
+
+**Cost**: $20/mo (includes everything)
+
+---
+
+### Option 2: VS Code + Claude Code Extension
+
+**Why this**: If you prefer VS Code and want to use Anthropic's Claude models.
+
+1. **Download VS Code**: https://code.visualstudio.com
+2. **Get Claude Pro** ($20/mo):
+   - Go to https://claude.ai/settings/billing
+   - Subscribe to Claude Pro
+3. **Install Claude Code extension**:
+   - Open VS Code Extensions (Cmd+Shift+X)
+   - Search "Claude Code" by Anthropic
+   - Click Install
+4. **Sign in**: Extension will prompt you to authenticate with your Claude Pro account
+
+**Cost**: $20/mo Claude Pro
+
+---
+
+### Option 3: VS Code + GitHub Copilot (Codex)
+
+**Why this**: If you prefer OpenAI's models or already have GitHub Copilot.
+
+1. **Download VS Code**: https://code.visualstudio.com
+2. **Get ChatGPT Plus** ($20/mo):
+   - Go to https://chatgpt.com/
+   - Subscribe to ChatGPT Plus
+3. **Install GitHub Copilot**:
+   - Open VS Code Extensions (Cmd+Shift+X)
+   - Search "GitHub Copilot"
+   - Click Install
+   - Sign in with GitHub account (needs Copilot subscription or ChatGPT Plus)
+
+**Cost**: $20/mo ChatGPT Plus
+
+---
+
+### Multi-Tool Setup (Advanced)
+
+**For cross-model peer review** (recommended after you're comfortable):
+
+Combine tools for better results:
+- **Cursor Pro ($20)** + **Claude Pro ($20)** = $40/mo
+- Use Cursor for main work, Claude Code for peer review
+- Different models catch different bugs
+
+**Most users start with just Cursor Pro** and add more tools later.
+
+---
+
 ## What This Kit Contains
 
 A complete project template for building with AI (Claude Code, Cursor, Codex).
@@ -55,43 +123,45 @@ Edit these files:
 
 **Don't overthink** — these will evolve as you build.
 
-### 4. Open Project in Cursor
+### 4. Open Project in Your Tool
 
+**If using Cursor**:
 ```bash
 cd ~/projects/my-new-project
 cursor .
 ```
 
-Or use VS Code:
+**If using VS Code**:
 ```bash
+cd ~/projects/my-new-project
 code .
 ```
 
-### 5. Install AI Extensions
+### 5. Verify Your Tool Reads the Config Files
 
-**In Cursor or VS Code**, install:
+**Test in Cursor**:
+1. Open Cursor chat (Cmd+L or Ctrl+L)
+2. Type `/` and you should see the 8 custom commands
+3. Ask "What project am I working on?" — it should know from `CLAUDE.md`
 
-1. **Claude Code extension** (by Anthropic)
-   - Reads `CLAUDE.md`
-   - Uses `.claude/commands/` for slash commands
+**Test in Claude Code extension (VS Code)**:
+1. Open Claude Code panel
+2. Ask "What project am I working on?" — it should read from `CLAUDE.md`
+3. Type `/` to see custom commands from `.claude/commands/`
 
-2. **GitHub Copilot or Codex extension** (by OpenAI/GitHub)
-   - Reads `AGENTS.md`
-   - Used for peer review and debugging
+**Test in GitHub Copilot (VS Code)**:
+1. Open Copilot chat
+2. It will read context from `AGENTS.md` when you ask coding questions
 
-3. **Cursor AI** (built into Cursor)
-   - Reads `.cursorrules`
-   - Composer for fast tasks
+### 6. Understanding Which File Each Tool Reads
 
-### 6. Verify Setup
+| Tool | What It Reads | Purpose |
+|------|---------------|---------|
+| **Cursor** | `.cursorrules` → points to `CLAUDE.md` | Main instructions + slash commands from `.cursor/commands/` |
+| **Claude Code extension** | `CLAUDE.md` directly | Main instructions + slash commands from `.claude/commands/` |
+| **GitHub Copilot/Codex** | `AGENTS.md` → points to `CLAUDE.md` | Reads project context for coding help |
 
-Each tool should now read its config:
-
-| Tool | Config File | How to Test |
-|------|-------------|-------------|
-| Claude Code | `CLAUDE.md` | Open chat, ask "What project am I working on?" |
-| Cursor AI | `.cursorrules` | Type `/` in Cursor chat, see available commands |
-| Codex | `AGENTS.md` | (Will read on invocation) |
+**All tools end up reading the same project context** — just through different entry points. This means your AI always knows your project, no matter which tool you use.
 
 ---
 
