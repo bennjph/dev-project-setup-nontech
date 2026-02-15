@@ -1,0 +1,118 @@
+# Cursor Project Rules
+
+**Read `CLAUDE.md` for complete project context, CTO role, and workflow.**
+
+This file provides Cursor-specific quick reference and model preferences.
+
+---
+
+## Project Quick Reference
+
+- **Project**: [PROJECT NAME]
+- **Description**: [One sentence — what this project does]
+- **Tech Stack**: [Brief: e.g., "React + TypeScript + Supabase"]
+
+See `CLAUDE.md` and `docs/TECH-STACK.md` for full details.
+
+---
+
+## Workflow Overview
+
+We follow an 8-phase process:
+
+1. **`/create-issue`** → Capture bugs/features to backlog
+2. **`/explore`** → Deep analysis, ask questions, read code (no coding yet)
+3. **`/create-plan`** → Generate markdown plan with progress tracking
+4. **`/execute`** → Implement plan step-by-step
+5. **`/review`** → Self-review code for issues
+6. **`/peer-review`** → Cross-model validation
+7. **`/document`** → Update docs and architecture notes
+8. **`/learn`** → Teaching mode for understanding
+
+See `CLAUDE.md` for detailed workflow documentation.
+
+---
+
+## Cursor-Specific Guidance
+
+### When to Use Composer vs Chat
+
+**Use Cursor Composer** for:
+- ✅ Simple, fast tasks (boilerplate, refactoring)
+- ✅ UI component changes
+- ✅ Quick fixes and tweaks
+- ✅ Multi-file editing for straightforward changes
+
+**Use Cursor Chat** for:
+- ✅ Complex architecture decisions
+- ✅ Database schema changes
+- ✅ Business logic implementation
+- ✅ Debugging tricky issues
+- ✅ Anything requiring deep thinking
+
+### Working with Plans
+
+When executing a plan (from `/create-plan`):
+
+1. Tag the plan file: `@plans/current-plan.md`
+2. Composer can read the plan and implement steps
+3. Update plan file as you complete steps (emoji status)
+
+---
+
+## Model Preferences
+
+When user manually switches models:
+
+| Model | Use For | Why |
+|-------|---------|-----|
+| **Claude (via Claude Code extension)** | Planning, exploration, main development | Best at understanding context, asking questions |
+| **GPT (via Codex extension)** | Gnarly bugs, complex debugging | Deep problem-solving |
+| **Gemini (optional)** | UI/frontend design | Great visual results |
+| **Cursor Composer** | Fast tasks | Blazing speed for simple work |
+
+---
+
+## Quality Reminders
+
+Before shipping:
+- ✅ Run `/review` (self-review)
+- ✅ Run `/peer-review` (cross-model validation)
+- ✅ Update docs with `/document`
+- ✅ No console.log, no hardcoded secrets, no TODOs
+
+---
+
+## File Structure Awareness
+
+```
+docs/ARCHITECTURE.md   ← System design (read first)
+docs/TECH-STACK.md     ← Technology choices
+docs/WORKFLOW.md       ← How we work
+docs/decisions/        ← ADRs
+docs/backlog/          ← Issues to work on
+plans/                 ← Active execution plans
+```
+
+**Before starting work**: Check `plans/` for active work.
+
+---
+
+## Cursor Slash Commands
+
+Available in `.cursor/commands/`:
+
+- `/create-issue`
+- `/explore`
+- `/create-plan`
+- `/execute`
+- `/review`
+- `/peer-review`
+- `/document`
+- `/learn`
+
+See individual command files for full prompts.
+
+---
+
+**Remember**: Read `CLAUDE.md` for the complete CTO context. This file is just a quick reference for Cursor users.
