@@ -6,9 +6,39 @@ How we build features in this project.
 
 ## Overview
 
-We follow an **8-phase development process** enforced by slash commands.
+We follow a **phased development process** enforced by slash commands.
 
-Each phase has a specific purpose and output. You can't skip phases.
+Before starting work, determine the right mode. This prevents running 8 phases for a typo fix, and prevents skipping exploration for a feature that touches auth.
+
+---
+
+## Work Modes
+
+### Quick Fix
+
+**When to use**: The change is fewer than ~20 lines, creates no new files, touches no data models, adds no dependencies, and doesn't involve auth/security/payments.
+
+```
+Describe fix → Code it → /review → Ship
+```
+
+Examples: CSS tweaks, copy changes, fixing a broken import, updating a config value.
+
+### Full Build
+
+**When to use**: Everything else. New features, refactors, anything that creates files, changes data models, or adds dependencies.
+
+```
+/create-issue → /explore → /create-plan → [approve] → /execute → /review → /peer-review → /document
+```
+
+Examples: Adding a new page, building a form, integrating a third-party API, changing the database schema.
+
+**When in doubt, use Full Build.** The cost of over-planning is minutes. The cost of under-planning is hours of rework.
+
+---
+
+## The 8 Phases (Full Build)
 
 ---
 
@@ -48,16 +78,17 @@ Each phase has a specific purpose and output. You can't skip phases.
 3. AI asks ALL clarifying questions
 4. Back-and-forth until zero ambiguity
 
-**Output**: Complete understanding of:
+**Output**: Exploration file saved to `plans/YYYY-MM-DD-[slug]-exploration.md` containing:
 - Current code state
 - Files to modify
 - Dependencies
 - Edge cases
-- Implementation approach
+- Clarifying Q&A
+- Recommended approach and alternatives considered
 
 **Time**: 10-30 minutes (depending on complexity)
 
-**Critical**: NO CODE WRITTEN during exploration
+**Critical**: NO CODE WRITTEN during exploration. Findings are saved to a file so reasoning survives across sessions.
 
 ---
 
@@ -122,8 +153,9 @@ Each phase has a specific purpose and output. You can't skip phases.
    - Performance
    - Security
    - Architecture
+3. AI appends review summary to the plan file under `## Review Log`
 
-**Output**: List of issues by severity (CRITICAL, HIGH, MEDIUM, LOW)
+**Output**: List of issues by severity (CRITICAL, HIGH, MEDIUM, LOW) — persisted to plan file
 
 **Time**: 5-10 minutes
 
@@ -146,7 +178,7 @@ Each phase has a specific purpose and output. You can't skip phases.
 6. AI validates each finding (has more context than peer)
 7. AI produces list of confirmed issues
 
-**Output**: Validated fix list (rejects false positives)
+**Output**: Validated fix list (rejects false positives) — appended to plan file under `## Review Log`
 
 **Time**: 10-20 minutes
 
@@ -197,35 +229,37 @@ Each phase has a specific purpose and output. You can't skip phases.
 
 ---
 
-## Visual Workflow
+## Visual Workflow (Full Build)
 
 ```
 Idea/Bug
    ↓
 /create-issue → docs/backlog/[issue].md
    ↓
-/explore → Understanding + Questions
+/explore → plans/[slug]-exploration.md     ← saved to file
    ↓
-/create-plan → plans/[plan].md
+/create-plan → plans/[plan].md             ← links exploration
    ↓
    [User approves plan]
    ↓
-/execute → Code changes
+/execute → Code changes + plan updates
    ↓
-/review → Self-review findings
+/review → Findings appended to plan file   ← persisted
    ↓
    [Fix critical/high issues]
    ↓
-/peer-review → Cross-model validation
+/peer-review → Validation appended to plan ← persisted
    ↓
    [Fix confirmed issues]
    ↓
 /document → Updated docs
    ↓
    ✅ Feature complete
-   
+
    [Optional: /learn anytime]
 ```
+
+**Quick Fix**: Describe fix → Code it → `/review` → Ship
 
 ---
 
@@ -283,18 +317,6 @@ A: `/explore` = understand WHAT to build. `/learn` = understand HOW it works.
 
 ## Workflow Variations
 
-### For Small Fixes
-
-```
-/create-issue (optional)
-  ↓
-Quick fix in code
-  ↓
-/review
-  ↓
-Ship
-```
-
 ### For New Projects
 
 ```
@@ -304,7 +326,7 @@ Create docs/ARCHITECTURE.md
   ↓
 /create-issue for first feature
   ↓
-Normal workflow
+Full Build workflow
 ```
 
 ### For Research/Exploration
@@ -316,8 +338,10 @@ Normal workflow
   ↓
 /create-issue with findings
   ↓
-Normal workflow
+Full Build workflow
 ```
+
+**For small fixes**: Use Quick Fix mode (see Work Modes at the top of this document).
 
 ---
 

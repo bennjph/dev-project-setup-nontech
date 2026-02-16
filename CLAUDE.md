@@ -54,9 +54,40 @@ Read these files to understand the project:
 
 ---
 
+## Work Modes
+
+Before starting any work, determine the mode. This decides which phases to run.
+
+### Quick Fix
+
+Use when **all** of the following are true:
+- Changing fewer than ~20 lines
+- No new files created
+- No data model or schema changes
+- No new dependencies added
+- No auth, security, or payment logic touched
+
+**Quick Fix workflow**:
+```
+Describe fix → Code it → /review → Ship
+```
+
+### Full Build
+
+Use for **everything else** — new features, refactors, anything that creates new files, touches data models, or adds dependencies.
+
+**Full Build workflow**:
+```
+/create-issue → /explore → /create-plan → [approve] → /execute → /review → /peer-review → /document
+```
+
+**When in doubt, use Full Build.** The cost of over-planning is minutes. The cost of under-planning is hours of rework.
+
+---
+
 ## Development Workflow
 
-We follow **8 phases** enforced by slash commands:
+We follow **8 phases** enforced by slash commands (Full Build uses all 8; Quick Fix uses a subset):
 
 ### Phase 1: Capture (`/create-issue`)
 When you think of a bug or feature mid-work, capture it quickly.  

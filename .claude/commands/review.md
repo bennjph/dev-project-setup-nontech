@@ -291,4 +291,26 @@ These are CRITICAL — stop and fix immediately:
 
 ---
 
+## Persist Review to Plan File
+
+**After completing the review**, append a summary to the active plan file under a `## Review Log` section:
+
+```markdown
+## Review Log
+
+### Self-Review — [YYYY-MM-DD]
+
+- **Files reviewed**: [count]
+- **Verdict**: [SHIP / FIX REQUIRED / BLOCKED]
+- **Critical**: [count] — [one-line summary if any]
+- **High**: [count] — [one-line summary if any]
+- **Medium**: [count]
+- **Low**: [count]
+- **Action**: [What was done — e.g., "Fixed 1 critical, 2 high. Re-reviewed clean."]
+```
+
+This ensures there's a durable record that review happened and what it found, even after the chat session ends.
+
+---
+
 **Remember**: You wrote this code, so you might miss your own mistakes. That's why `/peer-review` (different model) comes next.

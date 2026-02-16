@@ -174,17 +174,88 @@ If you notice these, SPEAK UP:
 
 ---
 
-## Success Criteria
+## Step 5: Save Exploration to File
 
-✅ You understand the current codebase  
-✅ You know exactly which files to modify  
-✅ You've identified all edge cases  
-✅ You've asked every question you have  
-✅ You've challenged any questionable approach  
-✅ You're ready to create a concrete plan  
+**After all questions are answered**, save your compiled findings to a file:
 
-**Next step**: Once all questions are answered, run `/create-plan`.
+Save to: `plans/YYYY-MM-DD-[slug]-exploration.md`
+
+Use this structure:
+
+```markdown
+# Exploration: [Feature/Issue Name]
+
+**Date**: [YYYY-MM-DD]
+**Issue**: [link to backlog issue if applicable]
+**Status**: Complete
 
 ---
 
-**Remember**: Exploration prevents mistakes. Time spent here saves time debugging later.
+## Problem Statement
+
+[What are we solving and why]
+
+## Current State
+
+[What exists today in the codebase]
+
+## Key Files
+
+- `path/to/file.ts` — [what it does, why it matters]
+- `path/to/file.ts` — [what it does, why it matters]
+
+## Architecture Pattern
+
+[Existing pattern we'll follow or need to extend]
+
+## Dependencies
+
+- [Dependency 1]: [Why it matters]
+- [Dependency 2]: [Why it matters]
+
+## Edge Cases
+
+1. [Edge case and how to handle]
+2. [Edge case and how to handle]
+
+## Risks
+
+- **[Risk]**: [Mitigation]
+
+## Clarifying Q&A
+
+- **Q**: [Question asked]
+  **A**: [Answer from user]
+
+## Recommended Approach
+
+[High-level approach — pseudocode OK, no real code]
+
+## Alternatives Considered
+
+- **[Alternative]**: [Why not chosen]
+
+## Next Step
+
+Proceed to `/create-plan`
+```
+
+**This file is the reasoning layer behind the plan.** It captures *why* we're building what we're building, not just *what*. If the plan is the contract, this is the negotiation transcript.
+
+---
+
+## Success Criteria
+
+✅ You understand the current codebase
+✅ You know exactly which files to modify
+✅ You've identified all edge cases
+✅ You've asked every question you have
+✅ You've challenged any questionable approach
+✅ You've saved exploration findings to `plans/YYYY-MM-DD-[slug]-exploration.md`
+✅ You're ready to create a concrete plan
+
+**Next step**: Once all questions are answered and exploration is saved, run `/create-plan`.
+
+---
+
+**Remember**: Exploration prevents mistakes. Time spent here saves time debugging later. The exploration file ensures this reasoning survives across sessions.

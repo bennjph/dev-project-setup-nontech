@@ -14,6 +14,7 @@ Based on our exploration exchange, produce a markdown implementation plan.
 - **Dynamic progress percentage** — calculate as steps complete
 - **Modular steps** — each step should be independently testable
 - **Integrate with existing code** — follow current patterns
+- **Small batches** — each task should produce roughly **20-50 lines** of code changes. If a task requires more, break it into subtasks. If a phase has more than 5 tasks, split it into two phases.
 
 ---
 
@@ -30,9 +31,10 @@ Use slug format: `fill-in-blank-questions-plan.md`, `dark-mode-toggle-plan.md`
 ```markdown
 # [Feature Name] Implementation Plan
 
-**Overall Progress:** `0%`  
-**Created:** [YYYY-MM-DD]  
+**Overall Progress:** `0%`
+**Created:** [YYYY-MM-DD]
 **Status:** Active | Completed | Paused
+**Exploration**: `plans/YYYY-MM-DD-[slug]-exploration.md`
 
 ---
 
@@ -137,6 +139,12 @@ If this goes wrong:
 
 ---
 
+## Review Log
+
+_Populated by `/review` and `/peer-review` — do not fill manually._
+
+---
+
 ## Next Steps
 
 1. Get user approval on this plan
@@ -161,12 +169,14 @@ If this goes wrong:
 
 Before finalizing the plan, verify:
 
-✅ Every step links to specific files  
-✅ No vague steps like "implement feature" (break it down)  
-✅ Critical decisions are documented  
-✅ Risks are identified with mitigations  
-✅ Testing strategy is clear  
-✅ Rollback plan exists  
+✅ Every step links to specific files
+✅ No vague steps like "implement feature" (break it down)
+✅ No single task requires more than ~50 lines of changes
+✅ Exploration file is linked at the top of the plan
+✅ Critical decisions are documented
+✅ Risks are identified with mitigations
+✅ Testing strategy is clear
+✅ Rollback plan exists
 ✅ Progress tracking is in place  
 
 ---

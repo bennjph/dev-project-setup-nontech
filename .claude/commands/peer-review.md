@@ -260,4 +260,23 @@ When you see these, **push back with evidence**.
 
 ---
 
+## Persist Peer Review to Plan File
+
+**After validation is complete**, append peer review results to the active plan file under the `## Review Log` section (create it if it doesn't exist):
+
+```markdown
+### Peer Review — [YYYY-MM-DD]
+
+- **Reviewing model**: [e.g., Codex / Cursor / Gemini]
+- **Findings received**: [total count]
+- **Confirmed valid**: [count] — [severity breakdown]
+- **Rejected (false positives)**: [count]
+- **Action**: [What was fixed]
+- **Verdict**: [Code cleared for shipping / Further fixes needed]
+```
+
+This creates a record of cross-model validation — what was checked, by whom, and what was found.
+
+---
+
 **Remember**: Peer review is valuable but not infallible. The peer reviewer is helping you catch blind spots, but YOU are the expert on this code. Trust your understanding, but stay open to legitimate issues.

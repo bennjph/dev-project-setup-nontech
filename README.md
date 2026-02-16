@@ -1,8 +1,10 @@
-# AI-Native Project Template
+# AI-Native Project Template (v2)
 
-**Inspired by Zevi's workflow on Lenny's podcast — Project-level configuration to start your product development**
+**Project-level configuration to start your product development with AI coding tools.**
 
 Drop this template into any project and start building production apps with AI (Claude Code, Cursor, or Codex). No coding experience needed. Based on the proven workflow used by product managers at Meta to ship real features.
+
+> **v2** adds artifact persistence, small batch constraints, and work mode routing. See [What's New in v2](#whats-new-in-v2).
 
 ---
 
@@ -19,11 +21,53 @@ Zevi shares how he built [StudyMate](https://studymate.ai/) — a revenue-genera
 
 ## What's Included
 
-✅ **3 config files** — Works with Claude Code, Cursor AI, and Codex simultaneously  
-✅ **8 slash commands** — Enforced workflow from idea → shipped feature  
-✅ **AI-native docs** — Architecture, tech stack, workflow guides  
-✅ **Cross-model review** — Different AIs validate each other's work  
-✅ **Progress tracking** — Markdown plans with emoji status (🟩🟨🟥)  
+✅ **3 config files** — Works with Claude Code, Cursor AI, and Codex simultaneously
+✅ **8 slash commands** — Enforced workflow from idea → shipped feature
+✅ **AI-native docs** — Architecture, tech stack, workflow guides
+✅ **Cross-model review** — Different AIs validate each other's work
+✅ **Progress tracking** — Markdown plans with emoji status (🟩🟨🟥)
+✅ **First principles guide** — The reasoning behind the system, for anyone who wants to build their own
+
+---
+
+## What's New in v2
+
+v2 was shaped by a first-principles analysis of the workflow. Three gaps were identified and closed:
+
+### 1. Artifact Persistence (every phase leaves a trace)
+
+**Before**: `/explore` findings and `/review` results lived only in the chat session. Close the window, lose the reasoning.
+
+**Now**:
+- `/explore` saves findings to `plans/YYYY-MM-DD-[slug]-exploration.md` — the reasoning layer behind the plan
+- `/review` appends its summary to the plan file under `## Review Log`
+- `/peer-review` appends validated findings to the same review log
+- `/create-plan` links back to the exploration file
+
+The plan file becomes the complete record: what was explored, what was built, and what was reviewed.
+
+### 2. Small Batch Constraints (right-sized tasks)
+
+**Before**: No explicit limit on task size. The AI could generate a "Build the entire checkout flow" task with 400 lines.
+
+**Now**:
+- Each task in a plan should produce roughly **20-50 lines** of code changes
+- Tasks larger than ~50 lines must be broken into subtasks
+- Phases with more than 5 tasks should be split into two phases
+- Plan quality checklist enforces this before execution begins
+
+### 3. Work Mode Routing (right process for the job)
+
+**Before**: One workflow for everything. A CSS color change went through 8 phases.
+
+**Now**: Two modes, determined before work starts:
+
+| Mode | When | Workflow |
+|------|------|----------|
+| **Quick Fix** | < 20 lines, no new files, no data/auth changes | Code it → `/review` → Ship |
+| **Full Build** | Everything else | All 8 phases |
+
+When in doubt, use Full Build. The cost of over-planning is minutes; the cost of under-planning is hours.
 
 ---
 
@@ -48,20 +92,28 @@ cursor .
 
 ---
 
-## The 8-Phase Workflow
+## The Workflow
+
+### Full Build (new features, refactors, anything non-trivial)
 
 ```
 /create-issue  →  Capture idea/bug to backlog
-/explore       →  Analyze problem, ask questions
-/create-plan   →  Generate implementation plan
-/execute       →  Build step-by-step
-/review        →  Self-review for bugs
-/peer-review   →  Cross-model validation
+/explore       →  Analyze problem, save findings to file
+/create-plan   →  Generate implementation plan (links exploration)
+/execute       →  Build step-by-step (small batches, ~20-50 LOC per task)
+/review        →  Self-review for bugs (appended to plan)
+/peer-review   →  Cross-model validation (appended to plan)
 /document      →  Update architecture docs
-/learn         →  Understand complex concepts
+/learn         →  Understand complex concepts (use anytime)
 ```
 
-**See**: `docs/WORKFLOW.md` for detailed workflow guide.
+### Quick Fix (< 20 lines, no new files or data changes)
+
+```
+Describe fix → Code it → /review → Ship
+```
+
+**See**: `docs/WORKFLOW.md` for the detailed guide and decision criteria.
 
 ---
 
@@ -78,6 +130,9 @@ cursor .
 3. **Cross-model review** — Different models catch different bugs
 4. **"Less context" framing** — Primary model validates peer findings (prevents false positives)
 5. **Learning loops** — `/learn` command for understanding, not just executing
+6. **Artifact persistence** — Exploration, review, and peer review results survive across sessions
+7. **Work mode routing** — Right amount of process for the size of the change
+8. **Small batch enforcement** — Tasks capped at ~50 lines to keep changes reviewable and reversible
 
 ---
 
@@ -100,17 +155,18 @@ cursor .
 ```
 your-project/
 ├── CLAUDE.md              ← CTO system prompt (main config)
-├── .cursorrules           ← Cursor config
-├── AGENTS.md              ← Codex/OpenCode config
+├── .cursorrules           ← Cursor config (points to CLAUDE.md)
+├── AGENTS.md              ← Codex/OpenCode config (points to CLAUDE.md)
+├── FIRST-PRINCIPLES.md    ← The reasoning behind the system
 ├── .claude/commands/      ← Slash commands (8 files)
 ├── .cursor/commands/      ← Same commands for Cursor
 ├── docs/
 │   ├── ARCHITECTURE.md    ← System design
 │   ├── TECH-STACK.md      ← Technology choices
 │   ├── WORKFLOW.md        ← How we work
-│   ├── decisions/         ← ADRs
-│   └── backlog/           ← Issues (markdown)
-├── plans/                 ← Execution plans
+│   ├── decisions/         ← ADRs (created during use)
+│   └── backlog/           ← Issues (created during use)
+├── plans/                 ← Exploration files + execution plans (created during use)
 ├── SETUP.md               ← Setup instructions
 └── README.md              ← This file
 ```
@@ -119,13 +175,13 @@ your-project/
 
 ## Who Is This For?
 
-✅ **Non-technical PMs** who want to build products  
-✅ **Solo founders** building MVPs with AI  
-✅ **Junior engineers** learning to build with AI  
-✅ **Technical PMs** who want better AI workflows  
-✅ **Anyone** building side projects with AI tools  
+✅ **Non-technical PMs** who want to build products
+✅ **Solo founders** building MVPs with AI
+✅ **Junior engineers** learning to build with AI
+✅ **Technical PMs** who want better AI workflows
+✅ **Anyone** building side projects with AI tools
 
-❌ **Not for**: Large engineering teams (unless they adapt it)
+**For multi-person teams**: This template is designed for solo builders. If you're working with a team and need RFCs, handoffs, multi-model validation pipelines, and tiered process scaling, see [agentic-ai-dev-team-setup](https://github.com/bennjph/agentic-ai-dev-team-setup) — a more comprehensive setup with 6 specialized agents, 7 commands, and 15 elite practices across Solo/Team/Enterprise tiers.
 
 ---
 
@@ -194,6 +250,15 @@ Just customize `CLAUDE.md` and `docs/TECH-STACK.md` for your stack.
 | **docs/WORKFLOW.md** | Detailed workflow guide |
 | **docs/ARCHITECTURE.md** | System design template |
 | **docs/TECH-STACK.md** | Technology choices template |
+| **FIRST-PRINCIPLES.md** | The reasoning behind the system |
+
+---
+
+## Build Your Own
+
+This template encodes a specific set of opinions. If you want to build your own AI development workflow from scratch, start with `FIRST-PRINCIPLES.md` — it distills 15 principles from elite engineering teams (Google SRE, DORA, Linear, NASA KM) into a reference you can use to design your own system.
+
+The principles are tool-agnostic and process-agnostic. They describe *what matters* without prescribing *how to implement it*. Use them as a checklist when designing your own slash commands, agent configurations, or workflow gates.
 
 ---
 
